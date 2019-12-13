@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities">
+    <EntitySetMapping Name="Clubs">
+      <EntityTypeMapping TypeName="Database1Model.Club">
+        <MappingFragment StoreEntitySet="Club">
+          <ScalarProperty Name="idClub" ColumnName="idClub" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Patron" ColumnName="Patron" />
+          <ScalarProperty Name="Funds" ColumnName="Funds" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Club_member">
+      <EntityTypeMapping TypeName="Database1Model.Club_member">
+        <MappingFragment StoreEntitySet="Club_member">
+          <ScalarProperty Name="idClub_members" ColumnName="idClub_members" />
+          <ScalarProperty Name="Positions_idPositions" ColumnName="Positions_idPositions" />
+          <ScalarProperty Name="Student_idStudent" ColumnName="Student_idStudent" />
+          <ScalarProperty Name="Club_idClub" ColumnName="Club_idClub" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="Database1Model.Event">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="idEvents" ColumnName="idEvents" />
+          <ScalarProperty Name="Club_idClub" ColumnName="Club_idClub" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events_has_Member">
+      <EntityTypeMapping TypeName="Database1Model.Events_has_Member">
+        <MappingFragment StoreEntitySet="Events_has_Member">
+          <ScalarProperty Name="idEvents_has_Member" ColumnName="idEvents_has_Member" />
+          <ScalarProperty Name="Club_member_idClub_members" ColumnName="Club_member_idClub_members" />
+          <ScalarProperty Name="Events_idEvents" ColumnName="Events_idEvents" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Positions">
+      <EntityTypeMapping TypeName="Database1Model.Position">
+        <MappingFragment StoreEntitySet="Positions">
+          <ScalarProperty Name="idPositions" ColumnName="idPositions" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="Database1Model.Student">
+        <MappingFragment StoreEntitySet="Student">
+          <ScalarProperty Name="idStudent" ColumnName="idStudent" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Class" ColumnName="Class" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Major" ColumnName="Major" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
