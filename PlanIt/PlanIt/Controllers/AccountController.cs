@@ -15,16 +15,17 @@ namespace PlanIt.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        public static string user_id = "";
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         ApplicationDbContext context;
 
         public AccountController()
         {
-          context = new ApplicationDbContext();
+            context = new ApplicationDbContext();
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -36,9 +37,9 @@ namespace PlanIt.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -70,22 +71,24 @@ namespace PlanIt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-          
+
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindAsync(model.Email, model.Password);
                 if (user != null)
                 {
-                  //  await SignSignInAsync(user, model.RememberMe);
+                    await SignInManager.SignInAsync(user, isPersistent:true, rememberBrowser: true);
                     if (UserManager.IsInRole(user.Id, "Club"))
                     {
+                        user_id = user.Id;
                         return RedirectToAction("Index", "Clubs");
                     }
                     else if (UserManager.IsInRole(user.Id, "Student"))
                     {
+                        user_id = user.Id;
                         return RedirectToAction("Index", "Home");
                     }
-                  
+
                 }
                 else
                 {
@@ -125,7 +128,7 @@ namespace PlanIt.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -167,9 +170,18 @@ namespace PlanIt.Controllers
                     //Ends Here
 
 
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await SignInManager.SignInAsync(user, isPersistent: true, rememberBrowser: true);
+                    if (UserManager.IsInRole(user.Id, "Club"))
+                    {
 
-                    return RedirectToAction("Index", "Home");
+                        user_id = user.Id;
+                        return RedirectToAction("Create", "Clubs");
+                    }
+                    else if (UserManager.IsInRole(user.Id, "Student"))
+                    {
+                        user_id = user.Id;
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 AddErrors(result);
             }
@@ -398,7 +410,7 @@ namespace PlanIt.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //

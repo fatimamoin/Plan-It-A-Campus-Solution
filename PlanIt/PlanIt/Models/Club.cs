@@ -21,7 +21,7 @@ namespace PlanIt.Models
             this.Events = new HashSet<Event>();
         }
     
-        public int idClub { get; set; }
+        public string idClub { get; set; }
         public string Name { get; set; }
         public string Patron { get; set; }
         public Nullable<int> Funds { get; set; }

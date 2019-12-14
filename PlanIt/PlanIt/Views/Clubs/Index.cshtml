@@ -1,15 +1,14 @@
-﻿@model IEnumerable<PlanIt.Models.Club>
+﻿
+@model IEnumerable<PlanIt.Models.Club>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_ClubsLayout.cshtml";
 }
 
-<h2>Index</h2>
+<h2> Welcome Back @ViewBag.id!</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -37,24 +36,27 @@
                 @Html.DisplayFor(modelItem => item.Funds)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.idClub }) |
-                @Html.ActionLink("Details", "Details", new { id = item.idClub }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.idClub })
+                @Html.ActionLink("Edit Profile", "Edit", new { id = item.idClub }) |
+                @Html.ActionLink("View Profile", "Details", new { id = item.idClub }) |
+                @Html.ActionLink("Delete Profile", "Delete", new { id = item.idClub })
             </td>
         </tr>
     }
 
+    @{
+        ViewBag.Title = "About";
+    }
+
+
+
 </table>
 
-@{
-    ViewBag.Title = "About";
-}
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 <div class="container theme-showcase">
-    <h1>Calendar</h1>
+    <h3>Your Events</h3>
     <div id="holder" class="row"></div>
 </div>
 
@@ -206,28 +208,6 @@
     </table>
 </script>
 
-<div class="container">
-    <hr>
-    <p>Resources</p>
-    <ul>
-        <li><a href="https://github.com/twbs/bootstrap">Bootstrap</a></li>
-        <li><a href="https://bootstrap-calendar.azurewebsites.net/index-bs3.html">another calendar</a></li>
-        <li><a href="http://www.bootply.com/rzNQTlDlFX">another calendar</a></li>
-        <li><a href="http://slipsum.com">lipsum generator</a></li>
-    </ul>
-</div>
-<div class="container">
-    <hr>
-    <p>Notes</p>
-    <ul>
-        <li>clicking on year to open and let you jump around 5ish years, don't care for current ui...</li>
-        <li>work needed on day mode (buggy, unfinished)</li>
-        <li>options missing still for classes</li>
-        <li>not sure about popover contents</li>
-        <li>? use of success state color and info state color ?</li>
-        <li><a href="http://www.reddit.com/r/css/comments/2gvw4n/i_refactored_my_less_to_follow_fats_guidelines/">can do better with css rules</a></li>
-    </ul>
-</div>
 <script>
     var $currentPopover = null;
   $(document).on('shown.bs.popover', function (ev) {

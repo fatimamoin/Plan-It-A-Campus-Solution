@@ -20,7 +20,7 @@ namespace PlanIt.Models
             this.Club_member = new HashSet<Club_member>();
         }
     
-        public int idStudent { get; set; }
+        public string idStudent { get; set; }
         public string Name { get; set; }
         public Nullable<int> Class { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }

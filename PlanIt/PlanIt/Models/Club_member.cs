@@ -11,8 +11,7 @@ namespace PlanIt.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class Club_member
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,13 +21,11 @@ namespace PlanIt.Models
         }
     
         public int idClub_members { get; set; }
-        
         public int Positions_idPositions { get; set; }
-        public int Student_idStudent { get; set; }
-        public int Club_idClub { get; set; }
+        public string Student_idStudent { get; set; }
+        public string Club_idClub { get; set; }
     
         public virtual Club Club { get; set; }
-        [DisplayName("Position")]
         public virtual Position Position { get; set; }
         public virtual Student Student { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

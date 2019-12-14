@@ -21,7 +21,7 @@ namespace PlanIt.Models
         }
     
         public int idEvents { get; set; }
-        public int Club_idClub { get; set; }
+        public string Club_idClub { get; set; }
         public string Name { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Location { get; set; }
