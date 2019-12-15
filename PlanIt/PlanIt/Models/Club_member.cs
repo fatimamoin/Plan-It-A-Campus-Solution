@@ -24,6 +24,8 @@ namespace PlanIt.Models
         public int Positions_idPositions { get; set; }
         public string Student_idStudent { get; set; }
         public string Club_idClub { get; set; }
+        public string Why { get; set; }
+        public string How { get; set; }
     
         public virtual Club Club { get; set; }
         public virtual Position Position { get; set; }

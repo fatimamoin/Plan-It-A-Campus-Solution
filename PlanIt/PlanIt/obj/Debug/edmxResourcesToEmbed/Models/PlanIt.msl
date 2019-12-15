@@ -14,6 +14,8 @@
     <EntitySetMapping Name="Club_member">
       <EntityTypeMapping TypeName="Database1Model.Club_member">
         <MappingFragment StoreEntitySet="Club_member">
+          <ScalarProperty Name="How" ColumnName="How" />
+          <ScalarProperty Name="Why" ColumnName="Why" />
           <ScalarProperty Name="idClub_members" ColumnName="idClub_members" />
           <ScalarProperty Name="Positions_idPositions" ColumnName="Positions_idPositions" />
           <ScalarProperty Name="Student_idStudent" ColumnName="Student_idStudent" />

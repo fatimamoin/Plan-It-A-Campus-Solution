@@ -323,6 +323,11 @@
     <Content Include="Views\Students\Details.cshtml" />
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
+    <Content Include="Views\Club_member1\Create.cshtml" />
+    <Content Include="Views\Club_member1\Delete.cshtml" />
+    <Content Include="Views\Club_member1\Details.cshtml" />
+    <Content Include="Views\Club_member1\Edit.cshtml" />
+    <Content Include="Views\Club_member1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

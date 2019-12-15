@@ -50,7 +50,7 @@ namespace PlanIt.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idClub_members,Positions_idPositions,Student_idStudent,Club_idClub")] Club_member club_member)
+        public ActionResult Create([Bind(Include = "idClub_members,Positions_idPositions,Student_idStudent,Club_idClub,Why,How")] Club_member club_member)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +61,10 @@ namespace PlanIt.Models
                 db.SaveChanges();
                 return RedirectToAction("Index", "Students");
             }
+
+            ViewBag.Club_idClub = new SelectList(db.Clubs, "idClub", "Name");
+            ViewBag.Positions_idPositions = "Member";
+            ViewBag.Student_idStudent = db.Students.FirstOrDefault(x => x.idStudent == AccountController.user_id).Name;
             return View(club_member);
         }
 
@@ -82,12 +86,12 @@ namespace PlanIt.Models
             return View(club_member);
         }
 
-        // POST: Club_member/Edit/5
+        // POST: Club_member1/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idClub_members,Positions_idPositions,Student_idStudent,Club_idClub")] Club_member club_member)
+        public ActionResult Edit([Bind(Include = "idClub_members,Positions_idPositions,Student_idStudent,Club_idClub,Why,How")] Club_member club_member)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +105,7 @@ namespace PlanIt.Models
             return View(club_member);
         }
 
-        // GET: Club_member/Delete/5
+        // GET: Club_member1/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -116,7 +120,7 @@ namespace PlanIt.Models
             return View(club_member);
         }
 
-        // POST: Club_member/Delete/5
+        // POST: Club_member1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

@@ -17,6 +17,8 @@
     <Property Name="Positions_idPositions" Type="int" Nullable="false" />
     <Property Name="Student_idStudent" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Club_idClub" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Why" Type="nvarchar" MaxLength="500" />
+    <Property Name="How" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="Events">
     <Key>

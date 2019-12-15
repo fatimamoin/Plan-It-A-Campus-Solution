@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Club">
           <Key>
             <PropertyRef Name="idClub" />
@@ -22,6 +22,8 @@
           <Property Name="Positions_idPositions" Type="int" Nullable="false" />
           <Property Name="Student_idStudent" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Club_idClub" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Why" Type="nvarchar" MaxLength="500" />
+          <Property Name="How" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Events">
           <Key>
@@ -163,8 +165,7 @@
             <End Role="Events_has_Member" EntitySet="Events_has_Member" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -191,6 +192,8 @@
           <NavigationProperty Name="Position" Relationship="Self.FK__Club_memb__Posit__2E1BDC42" FromRole="Club_member" ToRole="Positions" />
           <NavigationProperty Name="Student" Relationship="Self.FK__Club_memb__Stude__49C3F6B7" FromRole="Club_member" ToRole="Student" />
           <NavigationProperty Name="Events_has_Member" Relationship="Self.FK__Events_ha__Club___31EC6D26" FromRole="Club_member" ToRole="Events_has_Member" />
+          <Property Name="Why" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="How" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -357,6 +360,8 @@
           <EntitySetMapping Name="Club_member">
             <EntityTypeMapping TypeName="Database1Model.Club_member">
               <MappingFragment StoreEntitySet="Club_member">
+                <ScalarProperty Name="How" ColumnName="How" />
+                <ScalarProperty Name="Why" ColumnName="Why" />
                 <ScalarProperty Name="idClub_members" ColumnName="idClub_members" />
                 <ScalarProperty Name="Positions_idPositions" ColumnName="Positions_idPositions" />
                 <ScalarProperty Name="Student_idStudent" ColumnName="Student_idStudent" />

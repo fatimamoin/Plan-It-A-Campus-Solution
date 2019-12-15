@@ -23,6 +23,8 @@
     <NavigationProperty Name="Position" Relationship="Self.FK__Club_memb__Posit__2E1BDC42" FromRole="Club_member" ToRole="Positions" />
     <NavigationProperty Name="Student" Relationship="Self.FK__Club_memb__Stude__49C3F6B7" FromRole="Club_member" ToRole="Student" />
     <NavigationProperty Name="Events_has_Member" Relationship="Self.FK__Events_ha__Club___31EC6D26" FromRole="Club_member" ToRole="Events_has_Member" />
+    <Property Name="Why" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="How" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Event">
     <Key>
