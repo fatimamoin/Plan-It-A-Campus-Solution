@@ -52,8 +52,9 @@ namespace PlanIt.Models
         {
             if (ModelState.IsValid)
             {
-                db.Clubs.Add(club);
                 club.idClub = AccountController.user_id;
+                db.Clubs.Add(club);
+              
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -86,7 +86,7 @@ namespace PlanIt.Controllers
                     else if (UserManager.IsInRole(user.Id, "Student"))
                     {
                         user_id = user.Id;
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Students");
                     }
 
                 }
@@ -97,6 +97,53 @@ namespace PlanIt.Controllers
             }
             // If we got this far, something failed, redisplay form
             return View(model);
+
+            /*
+              if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindAsync(model.Email, model.Password);
+                if (user != null)
+                {
+                    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                    if (result == SignInStatus.Success)
+                    {
+                        if (UserManager.IsInRole(user.Id, "Club"))
+                        {
+                            user_id = user.Id;
+                            return RedirectToAction("Index", "Clubs");
+                        }
+                        else if (UserManager.IsInRole(user.Id, "Student"))
+                        {
+                            user_id = user.Id;
+                            return RedirectToAction("Index", "Home");
+                        }
+
+                    }
+                    else if (result== SignInStatus.LockedOut)
+                    {
+                        return View("Lockout");
+                    }
+                    else if (result == SignInStatus.RequiresVerification)
+                    {
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    }
+                    else if (result==SignInStatus.Failure)
+                    {
+                        ModelState.AddModelError("", "Invalid username or password");
+                        return View(model);
+
+                    }
+                }
+                else
+                {
+                    return View(model);
+                }
+            }
+            else
+            {
+                return View(model);
+            }
+             */
         }
 
         //
@@ -180,7 +227,7 @@ namespace PlanIt.Controllers
                     else if (UserManager.IsInRole(user.Id, "Student"))
                     {
                         user_id = user.Id;
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Create", "Students");
                     }
                 }
                 AddErrors(result);

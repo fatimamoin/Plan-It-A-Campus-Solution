@@ -39,9 +39,9 @@ namespace PlanIt.Models
         // GET: Club_member/Create
         public ActionResult Create()
         {
-            ViewBag.Club_idClub = db.Clubs.FirstOrDefault(x => x.idClub == AccountController.user_id).Name; 
-            ViewBag.Positions_idPositions = new SelectList(db.Positions, "idPositions", "Name");
-            ViewBag.Student_idStudent = new SelectList(db.Students, "idStudent", "Name");
+            ViewBag.Club_idClub = new SelectList(db.Clubs, "idClub", "Name");  
+            ViewBag.Positions_idPositions = "Member";
+            ViewBag.Student_idStudent = db.Students.FirstOrDefault(x => x.idStudent == AccountController.user_id).Name;
             return View();
         }
 
@@ -54,14 +54,13 @@ namespace PlanIt.Models
         {
             if (ModelState.IsValid)
             {
+                club_member.Student_idStudent = AccountController.user_id;
+                club_member.Positions_idPositions = 1;
+                club_member.idClub_members = db.Club_member.Max(u => u.idClub_members) + 1;
                 db.Club_member.Add(club_member);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Students");
             }
-
-            ViewBag.Club_idClub = new SelectList(db.Clubs, "idClub", "Name", club_member.Club_idClub);
-            ViewBag.Positions_idPositions = new SelectList(db.Positions, "idPositions", "Name", club_member.Positions_idPositions);
-            ViewBag.Student_idStudent = new SelectList(db.Students, "idStudent", "Name", club_member.Student_idStudent);
             return View(club_member);
         }
 
