@@ -456,6 +456,10 @@ namespace PlanIt.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            HttpCookie cookie = new HttpCookie("MemberInfo");
+            cookie["Why"] = " ";
+            cookie["How"] = " ";
+            Response.Cookies.Add(cookie);
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Login", "Account");
         }

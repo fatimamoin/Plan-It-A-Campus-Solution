@@ -11,7 +11,8 @@ namespace PlanIt.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Event
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,9 +23,11 @@ namespace PlanIt.Models
     
         public int idEvents { get; set; }
         public string Club_idClub { get; set; }
+        [DisplayName("Event Name")]
         public string Name { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Location { get; set; }
+        [DisplayName("Event details")]
         public string description { get; set; }
     
         public virtual Club Club { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlanIt.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -16,7 +17,7 @@ namespace PlanIt.Models
         // GET: Events
         public ActionResult Index()
         {
-            var events = db.Events.Include(c => c.Club); 
+            var events = db.Events.Include(c => c.Club).Where(c => c.Club_idClub == AccountController.user_id); 
             return View(events.ToList());
         }
 
@@ -38,7 +39,7 @@ namespace PlanIt.Models
         // GET: Events/Create
         public ActionResult Create()
         {
-            ViewBag.Club_idClub = new SelectList(db.Clubs, "idClub", "Name");
+            ViewBag.Club_idClub = db.Clubs.FirstOrDefault(x => x.idClub == AccountController.user_id).Name;
             return View();
         }
 
@@ -51,12 +52,14 @@ namespace PlanIt.Models
         {
             if (ModelState.IsValid)
             {
+                @event.Club_idClub = AccountController.user_id;
+                @event.idEvents = db.Events.Max(u => u.idEvents) + 1;
                 db.Events.Add(@event);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Club_idClub = new SelectList(db.Clubs, "idClub", "Name", @event.Club_idClub);
+            ViewBag.Club_idClub = db.Clubs.FirstOrDefault(x => x.idClub == AccountController.user_id).Name;
             return View(@event);
         }
 
@@ -72,7 +75,7 @@ namespace PlanIt.Models
             {
                 return HttpNotFound();
             }
-            ViewBag.Club_idClub = new SelectList(db.Clubs, "idClub", "Name", @event.Club_idClub);
+            ViewBag.Club_idClub = db.Clubs.FirstOrDefault(x => x.idClub == AccountController.user_id).Name;
             return View(@event);
         }
 
@@ -85,6 +88,7 @@ namespace PlanIt.Models
         {
             if (ModelState.IsValid)
             {
+                @event.Club_idClub = AccountController.user_id;
                 db.Entry(@event).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -15,8 +15,10 @@ namespace PlanIt.Models
         private Database1Entities db = new Database1Entities();
 
         // GET: Students
+        [OutputCache(Duration =300)]
         public ActionResult Index()
         {
+            System.Threading.Thread.Sleep(2000);
             ViewBag.id = db.Students.FirstOrDefault(x => x.idStudent == AccountController.user_id).Name;
 
             return View(db.Students.Where(c => c.idStudent == AccountController.user_id).ToList());
@@ -36,6 +38,7 @@ namespace PlanIt.Models
             }
             return View(student);
         }
+
 
         // GET: Students/Create
         public ActionResult Create()

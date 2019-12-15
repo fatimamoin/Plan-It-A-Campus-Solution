@@ -11,6 +11,7 @@ namespace PlanIt.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class Student
@@ -22,6 +23,7 @@ namespace PlanIt.Models
         }
     
         public string idStudent { get; set; }
+        [DisplayName("Student Name")]
         public string Name { get; set; }
         public Nullable<int> Class { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]

@@ -11,7 +11,8 @@ namespace PlanIt.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Club
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +23,8 @@ namespace PlanIt.Models
         }
     
         public string idClub { get; set; }
+        [DisplayName("Club Name")]
+
         public string Name { get; set; }
         public string Patron { get; set; }
         public Nullable<int> Funds { get; set; }
