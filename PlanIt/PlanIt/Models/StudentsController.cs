@@ -15,7 +15,7 @@ namespace PlanIt.Models
         private Database1Entities db = new Database1Entities();
 
         // GET: Students
-        [OutputCache(Duration =300)]
+      //  [OutputCache(Duration =300)]
         public ActionResult Index()
         {
             System.Threading.Thread.Sleep(2000);
@@ -24,6 +24,25 @@ namespace PlanIt.Models
             return View(db.Students.Where(c => c.idStudent == AccountController.user_id).ToList());
         }
 
+        public JsonResult GetEvents()
+        {
+            var person = (from p in db.Events
+                          join e in db.Club_member
+                          on p.Club_idClub equals e.Club_idClub
+                          where e.Student_idStudent == AccountController.user_id
+                          select new
+                          {
+                              Name = p.Name,
+                              description = p.description,
+                              Date = p.Date
+
+                          }).ToList();
+
+            
+
+            return Json(person, JsonRequestBehavior.AllowGet);
+
+        }
         // GET: Students/Details/5
         public ActionResult Details(string id)
         {

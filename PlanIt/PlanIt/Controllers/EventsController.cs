@@ -15,10 +15,13 @@ namespace PlanIt.Models
         private Database1Entities db = new Database1Entities();
 
         // GET: Events
+        [OutputCache(Duration = 300)]
         public ActionResult Index()
         {
-            var events = db.Events.Include(c => c.Club).Where(c => c.Club_idClub == AccountController.user_id); 
-            return View(events.ToList());
+            var events = db.Events.Include(c => c.Club).Where(c => c.Club_idClub == AccountController.user_id);
+//return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+              return View(events.ToList());
         }
 
         // GET: Events/Details/5

@@ -15,6 +15,7 @@ namespace PlanIt.Models
         private Database1Entities db = new Database1Entities();
         public static string studentid = "";
         // GET: Club_member
+        [OutputCache(Duration = 300)]
         public ActionResult Index()
         {
             var club_member = db.Club_member.Include(c => c.Club).Include(c => c.Position).Include(c => c.Student).Where(c =>c.Club_idClub == AccountController.user_id);

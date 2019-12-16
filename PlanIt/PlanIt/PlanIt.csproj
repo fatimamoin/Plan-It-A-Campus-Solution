@@ -197,6 +197,7 @@
     <Compile Include="Models\Events_has_Member.cs">
       <DependentUpon>PlanIt.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Events_has_MemberController.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PlanIt.Context.cs">
@@ -323,11 +324,11 @@
     <Content Include="Views\Students\Details.cshtml" />
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
-    <Content Include="Views\Club_member1\Create.cshtml" />
-    <Content Include="Views\Club_member1\Delete.cshtml" />
-    <Content Include="Views\Club_member1\Details.cshtml" />
-    <Content Include="Views\Club_member1\Edit.cshtml" />
-    <Content Include="Views\Club_member1\Index.cshtml" />
+    <Content Include="Views\Events_has_Member\Create.cshtml" />
+    <Content Include="Views\Events_has_Member\Delete.cshtml" />
+    <Content Include="Views\Events_has_Member\Details.cshtml" />
+    <Content Include="Views\Events_has_Member\Edit.cshtml" />
+    <Content Include="Views\Events_has_Member\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

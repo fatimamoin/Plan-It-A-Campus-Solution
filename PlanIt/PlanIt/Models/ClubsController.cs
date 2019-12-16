@@ -15,13 +15,28 @@ namespace PlanIt.Models
         private Database1Entities db = new Database1Entities();
 
         // GET: Clubs
+        [OutputCache(Duration = 300)]
         public ActionResult Index()
         {
             ViewBag.id = db.Clubs.FirstOrDefault(x => x.idClub == AccountController.user_id).Name;
-                //db.Clubs.Where(c => c.idClub == AccountController.user_id).Select(c => new{ c.Name}); 
+            //db.Clubs.Where(c => c.idClub == AccountController.user_id).Select(c => new{ c.Name}); 
             return View(db.Clubs.Where(c => c.idClub == AccountController.user_id).ToList());
         }
 
+        public JsonResult GetEvents()
+        {
+            var eventss = db.Events.Where(c=> c.Club_idClub == AccountController.user_id).ToList();
+            var modelList = eventss.Select(x =>
+                   new Event()
+                   {
+                       Name = x.Name,
+                       description = x.description,
+                       Date = x.Date
+
+                   });
+             return Json(modelList, JsonRequestBehavior.AllowGet);
+
+        }
         // GET: Clubs/Details/5
         public ActionResult Details(string id)
         {
