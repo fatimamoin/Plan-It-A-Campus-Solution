@@ -26,6 +26,7 @@
     <EntitySetMapping Name="Events">
       <EntityTypeMapping TypeName="Database1Model.Event">
         <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="seats" ColumnName="seats" />
           <ScalarProperty Name="idEvents" ColumnName="idEvents" />
           <ScalarProperty Name="Club_idClub" ColumnName="Club_idClub" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -38,6 +39,7 @@
     <EntitySetMapping Name="Events_has_Member">
       <EntityTypeMapping TypeName="Database1Model.Events_has_Member">
         <MappingFragment StoreEntitySet="Events_has_Member">
+          <ScalarProperty Name="Why" ColumnName="Why" />
           <ScalarProperty Name="idEvents_has_Member" ColumnName="idEvents_has_Member" />
           <ScalarProperty Name="Club_member_idClub_members" ColumnName="Club_member_idClub_members" />
           <ScalarProperty Name="Events_idEvents" ColumnName="Events_idEvents" />

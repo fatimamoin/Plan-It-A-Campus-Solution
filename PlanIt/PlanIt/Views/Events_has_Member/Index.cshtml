@@ -5,18 +5,18 @@
     Layout = "~/Views/Shared/_ClubsLayout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Event Registrations</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Club_member.Student_idStudent)
+            @Html.DisplayNameFor(model => model.Club_member.Student.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Event.Club_idClub)
+            @Html.DisplayNameFor(model => model.Event.Club.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model=>model.Why)
         </th>
         <th></th>
     </tr>
@@ -24,15 +24,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Club_member.Student_idStudent)
+            @Html.DisplayFor(modelItem => item.Club_member.Student.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Event.Club_idClub)
+            @Html.DisplayFor(modelItem => item.Event.Club.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idEvents_has_Member }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idEvents_has_Member }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idEvents_has_Member })
+            @Html.DisplayFor(modelItem => item.Why)
         </td>
     </tr>
 }

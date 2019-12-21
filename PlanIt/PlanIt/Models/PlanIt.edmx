@@ -35,6 +35,7 @@
           <Property Name="Date" Type="datetime" />
           <Property Name="Location" Type="varchar" MaxLength="100" />
           <Property Name="description" Type="varchar" MaxLength="1000" />
+          <Property Name="seats" Type="int" />
         </EntityType>
         <EntityType Name="Events_has_Member">
           <Key>
@@ -43,6 +44,7 @@
           <Property Name="idEvents_has_Member" Type="int" Nullable="false" />
           <Property Name="Club_member_idClub_members" Type="int" Nullable="false" />
           <Property Name="Events_idEvents" Type="int" Nullable="false" />
+          <Property Name="Why" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="Positions">
           <Key>
@@ -207,6 +209,7 @@
           <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Club" Relationship="Self.FK__Events__Club_idC__36B12243" FromRole="Events" ToRole="Club" />
           <NavigationProperty Name="Events_has_Member" Relationship="Self.FK__Events_ha__Event__30F848ED" FromRole="Events" ToRole="Events_has_Member" />
+          <Property Name="seats" Type="Int32" />
         </EntityType>
         <EntityType Name="Events_has_Member">
           <Key>
@@ -217,6 +220,7 @@
           <Property Name="Events_idEvents" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Club_member" Relationship="Self.FK__Events_ha__Club___31EC6D26" FromRole="Events_has_Member" ToRole="Club_member" />
           <NavigationProperty Name="Event" Relationship="Self.FK__Events_ha__Event__30F848ED" FromRole="Events_has_Member" ToRole="Events" />
+          <Property Name="Why" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Position">
           <Key>
@@ -372,6 +376,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="Database1Model.Event">
               <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="seats" ColumnName="seats" />
                 <ScalarProperty Name="idEvents" ColumnName="idEvents" />
                 <ScalarProperty Name="Club_idClub" ColumnName="Club_idClub" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -384,6 +389,7 @@
           <EntitySetMapping Name="Events_has_Member">
             <EntityTypeMapping TypeName="Database1Model.Events_has_Member">
               <MappingFragment StoreEntitySet="Events_has_Member">
+                <ScalarProperty Name="Why" ColumnName="Why" />
                 <ScalarProperty Name="idEvents_has_Member" ColumnName="idEvents_has_Member" />
                 <ScalarProperty Name="Club_member_idClub_members" ColumnName="Club_member_idClub_members" />
                 <ScalarProperty Name="Events_idEvents" ColumnName="Events_idEvents" />

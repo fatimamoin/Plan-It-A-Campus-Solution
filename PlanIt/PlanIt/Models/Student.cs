@@ -11,7 +11,6 @@ namespace PlanIt.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class Student
@@ -21,12 +20,11 @@ namespace PlanIt.Models
         {
             this.Club_member = new HashSet<Club_member>();
         }
-    
+
         public string idStudent { get; set; }
-        [DisplayName("Student Name")]
+        [Display(Name = "Student Name")]
         public string Name { get; set; }
         public Nullable<int> Class { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> DOB { get; set; }
         public string Major { get; set; }
     

@@ -30,6 +30,7 @@
     <Property Name="Date" Type="datetime" />
     <Property Name="Location" Type="varchar" MaxLength="100" />
     <Property Name="description" Type="varchar" MaxLength="1000" />
+    <Property Name="seats" Type="int" />
   </EntityType>
   <EntityType Name="Events_has_Member">
     <Key>
@@ -38,6 +39,7 @@
     <Property Name="idEvents_has_Member" Type="int" Nullable="false" />
     <Property Name="Club_member_idClub_members" Type="int" Nullable="false" />
     <Property Name="Events_idEvents" Type="int" Nullable="false" />
+    <Property Name="Why" Type="nvarchar" MaxLength="1000" />
   </EntityType>
   <EntityType Name="Positions">
     <Key>

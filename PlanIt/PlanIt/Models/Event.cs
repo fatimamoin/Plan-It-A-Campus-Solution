@@ -11,7 +11,7 @@ namespace PlanIt.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Event
     {
@@ -23,12 +23,13 @@ namespace PlanIt.Models
     
         public int idEvents { get; set; }
         public string Club_idClub { get; set; }
-        [DisplayName("Event Name")]
         public string Name { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Location { get; set; }
-        [DisplayName("Event details")]
+        [Display(Name= "Description")]
         public string description { get; set; }
+        [Display(Name="Seats")]
+        public Nullable<int> seats { get; set; }
     
         public virtual Club Club { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

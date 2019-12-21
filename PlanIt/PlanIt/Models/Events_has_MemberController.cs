@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlanIt.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,10 +14,11 @@ namespace PlanIt.Models
     {
         private Database1Entities db = new Database1Entities();
 
+        [Authorize(Roles = "Club")]
         // GET: Events_has_Member
         public ActionResult Index()
         {
-            var events_has_Member = db.Events_has_Member.Include(e => e.Club_member).Include(e => e.Event);
+            var events_has_Member = db.Events_has_Member.Include(e => e.Club_member).Include(e => e.Event).Where(e=> e.Events_idEvents == EventsController.event_id);
             return View(events_has_Member.ToList());
         }
 
@@ -36,10 +38,11 @@ namespace PlanIt.Models
         }
 
         // GET: Events_has_Member/Create
+        [Authorize(Roles = "Student")]
         public ActionResult Create()
         {
-            ViewBag.Club_member_idClub_members = new SelectList(db.Club_member, "idClub_members", "Student_idStudent");
-            ViewBag.Events_idEvents = new SelectList(db.Events, "idEvents", "Club_idClub");
+            ViewBag.Club_member_idClub_members = db.Students.FirstOrDefault(x => x.idStudent == AccountController.user_id).Name;
+            ViewBag.Events_idEvents = new SelectList(db.Events, "idEvents", "Name");
             return View();
         }
 
@@ -48,17 +51,21 @@ namespace PlanIt.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idEvents_has_Member,Club_member_idClub_members,Events_idEvents")] Events_has_Member events_has_Member)
+        public ActionResult Create([Bind(Include = "idEvents_has_Member,Club_member_idClub_members,Events_idEvents, Why")] Events_has_Member events_has_Member)
         {
             if (ModelState.IsValid)
             {
+                events_has_Member.idEvents_has_Member = db.Events_has_Member.Max(u => u.idEvents_has_Member) + 1;
+                events_has_Member.Club_member_idClub_members = db.Club_member.FirstOrDefault(u => u.Student_idStudent
+                == AccountController.user_id).idClub_members;
                 db.Events_has_Member.Add(events_has_Member);
                 db.SaveChanges();
                 return RedirectToAction("Index","Students");
             }
 
-            ViewBag.Club_member_idClub_members = new SelectList(db.Club_member, "idClub_members", "Student_idStudent", events_has_Member.Club_member_idClub_members);
-            ViewBag.Events_idEvents = new SelectList(db.Events, "idEvents", "Club_idClub", events_has_Member.Events_idEvents);
+
+            ViewBag.Club_member_idClub_members = db.Students.FirstOrDefault(x => x.idStudent == AccountController.user_id).Name;
+            ViewBag.Events_idEvents = new SelectList(db.Events, "idEvents", "Name"); 
             return View(events_has_Member);
         }
 

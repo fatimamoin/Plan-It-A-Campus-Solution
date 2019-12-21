@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_ClubsLayout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Your registered Events</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -46,7 +46,8 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.idEvents }) |
             @Html.ActionLink("Details", "Details", new { id=item.idEvents }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idEvents })
+            @Html.ActionLink("Delete", "Delete", new { id=item.idEvents }) |
+            @Html.ActionLink("Registrations", "Index", "Events_has_Member")
         </td>
     </tr>
 }

@@ -16,6 +16,7 @@ namespace PlanIt.Models
 
         // GET: Clubs
         [OutputCache(Duration = 300)]
+        [Authorize(Roles = "Club")]
         public ActionResult Index()
         {
             ViewBag.id = db.Clubs.FirstOrDefault(x => x.idClub == AccountController.user_id).Name;
@@ -38,6 +39,7 @@ namespace PlanIt.Models
 
         }
         // GET: Clubs/Details/5
+        [Authorize(Roles = "Club")]
         public ActionResult Details(string id)
         {
             if (id == null)

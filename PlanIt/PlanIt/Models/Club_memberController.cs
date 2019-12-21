@@ -16,9 +16,16 @@ namespace PlanIt.Models
         public static string studentid = "";
         // GET: Club_member
         [OutputCache(Duration = 300)]
+        [Authorize(Roles = "Club")]
         public ActionResult Index()
         {
             var club_member = db.Club_member.Include(c => c.Club).Include(c => c.Position).Include(c => c.Student).Where(c =>c.Club_idClub == AccountController.user_id);
+            return View(club_member.ToList());
+        }
+        [Authorize(Roles = "Student")]
+        public ActionResult Index_Student()
+        {
+            var club_member = db.Club_member.Include(c => c.Club).Include(c => c.Position).Include(c => c.Student).Where(c => c.Student_idStudent == AccountController.user_id);
             return View(club_member.ToList());
         }
 

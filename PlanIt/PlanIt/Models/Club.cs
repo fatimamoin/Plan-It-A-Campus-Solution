@@ -11,7 +11,7 @@ namespace PlanIt.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Club
     {
@@ -23,8 +23,7 @@ namespace PlanIt.Models
         }
     
         public string idClub { get; set; }
-        [DisplayName("Club Name")]
-
+        [Display(Name = "Club Name")]
         public string Name { get; set; }
         public string Patron { get; set; }
         public Nullable<int> Funds { get; set; }

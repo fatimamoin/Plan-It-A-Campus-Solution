@@ -17,6 +17,7 @@ namespace PlanIt.Models
         public int idEvents_has_Member { get; set; }
         public int Club_member_idClub_members { get; set; }
         public int Events_idEvents { get; set; }
+        public string Why { get; set; }
     
         public virtual Club_member Club_member { get; set; }
         public virtual Event Event { get; set; }

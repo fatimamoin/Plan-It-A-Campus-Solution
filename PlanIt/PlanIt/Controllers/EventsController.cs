@@ -12,12 +12,15 @@ namespace PlanIt.Models
 {
     public class EventsController : Controller
     {
+        public static int event_id = 0;
         private Database1Entities db = new Database1Entities();
 
         // GET: Events
         [OutputCache(Duration = 300)]
+        [Authorize(Roles = "Club")]
         public ActionResult Index()
         {
+            event_id = db.Events.FirstOrDefault(c => c.Club_idClub == AccountController.user_id).idEvents;
             var events = db.Events.Include(c => c.Club).Where(c => c.Club_idClub == AccountController.user_id);
 //return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -40,6 +43,7 @@ namespace PlanIt.Models
         }
 
         // GET: Events/Create
+        [Authorize(Roles = "Club")]
         public ActionResult Create()
         {
             ViewBag.Club_idClub = db.Clubs.FirstOrDefault(x => x.idClub == AccountController.user_id).Name;
@@ -51,7 +55,7 @@ namespace PlanIt.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idEvents,Club_idClub,Name,Date,Location,description")] Event @event)
+        public ActionResult Create([Bind(Include = "idEvents,Club_idClub,Name,Date,Location,description, seats")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -67,6 +71,7 @@ namespace PlanIt.Models
         }
 
         // GET: Events/Edit/5
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -87,7 +92,7 @@ namespace PlanIt.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idEvents,Club_idClub,Name,Date,Location,description")] Event @event)
+        public ActionResult Edit([Bind(Include = "idEvents,Club_idClub,Name,Date,Location,description,seats")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -101,6 +106,7 @@ namespace PlanIt.Models
         }
 
         // GET: Events/Delete/5
+        [Authorize(Roles = "Club")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

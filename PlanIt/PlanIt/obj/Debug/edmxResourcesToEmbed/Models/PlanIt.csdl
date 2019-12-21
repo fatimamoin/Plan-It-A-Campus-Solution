@@ -38,6 +38,7 @@
     <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Club" Relationship="Self.FK__Events__Club_idC__36B12243" FromRole="Events" ToRole="Club" />
     <NavigationProperty Name="Events_has_Member" Relationship="Self.FK__Events_ha__Event__30F848ED" FromRole="Events" ToRole="Events_has_Member" />
+    <Property Name="seats" Type="Int32" />
   </EntityType>
   <EntityType Name="Events_has_Member">
     <Key>
@@ -48,6 +49,7 @@
     <Property Name="Events_idEvents" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Club_member" Relationship="Self.FK__Events_ha__Club___31EC6D26" FromRole="Events_has_Member" ToRole="Club_member" />
     <NavigationProperty Name="Event" Relationship="Self.FK__Events_ha__Event__30F848ED" FromRole="Events_has_Member" ToRole="Events" />
+    <Property Name="Why" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Position">
     <Key>
