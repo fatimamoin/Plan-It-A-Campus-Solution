@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Club">
+          <Key>
+            <PropertyRef Name="idClub" />
+          </Key>
+          <Property Name="idClub" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Patron" Type="varchar" MaxLength="100" />
+          <Property Name="Funds" Type="int" />
+        </EntityType>
+        <EntityType Name="Club_member">
+          <Key>
+            <PropertyRef Name="idClub_members" />
+          </Key>
+          <Property Name="idClub_members" Type="int" Nullable="false" />
+          <Property Name="Positions_idPositions" Type="int" Nullable="false" />
+          <Property Name="Student_idStudent" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Club_idClub" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Why" Type="nvarchar" MaxLength="500" />
+          <Property Name="How" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="idEvents" />
+          </Key>
+          <Property Name="idEvents" Type="int" Nullable="false" />
+          <Property Name="Club_idClub" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Location" Type="varchar" MaxLength="100" />
+          <Property Name="description" Type="varchar" MaxLength="1000" />
+          <Property Name="seats" Type="int" />
+        </EntityType>
+        <EntityType Name="Events_has_Member">
+          <Key>
+            <PropertyRef Name="idEvents_has_Member" />
+          </Key>
+          <Property Name="idEvents_has_Member" Type="int" Nullable="false" />
+          <Property Name="Club_member_idClub_members" Type="int" Nullable="false" />
+          <Property Name="Events_idEvents" Type="int" Nullable="false" />
+          <Property Name="Why" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Positions">
+          <Key>
+            <PropertyRef Name="idPositions" />
+          </Key>
+          <Property Name="idPositions" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="idStudent" />
+          </Key>
+          <Property Name="idStudent" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Class" Type="int" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="Major" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__Club_memb__Club___37A5467C">
+          <End Role="Club" Type="Self.Club" Multiplicity="1" />
+          <End Role="Club_member" Type="Self.Club_member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Club">
+              <PropertyRef Name="idClub" />
+            </Principal>
+            <Dependent Role="Club_member">
+              <PropertyRef Name="Club_idClub" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Club_memb__Posit__2E1BDC42">
+          <End Role="Positions" Type="Self.Positions" Multiplicity="1" />
+          <End Role="Club_member" Type="Self.Club_member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Positions">
+              <PropertyRef Name="idPositions" />
+            </Principal>
+            <Dependent Role="Club_member">
+              <PropertyRef Name="Positions_idPositions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Club_memb__Stude__49C3F6B7">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Club_member" Type="Self.Club_member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="idStudent" />
+            </Principal>
+            <Dependent Role="Club_member">
+              <PropertyRef Name="Student_idStudent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Events__Club_idC__36B12243">
+          <End Role="Club" Type="Self.Club" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Club">
+              <PropertyRef Name="idClub" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="Club_idClub" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Events_ha__Club___31EC6D26">
+          <End Role="Club_member" Type="Self.Club_member" Multiplicity="1" />
+          <End Role="Events_has_Member" Type="Self.Events_has_Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Club_member">
+              <PropertyRef Name="idClub_members" />
+            </Principal>
+            <Dependent Role="Events_has_Member">
+              <PropertyRef Name="Club_member_idClub_members" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Events_ha__Event__30F848ED">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="Events_has_Member" Type="Self.Events_has_Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="idEvents" />
+            </Principal>
+            <Dependent Role="Events_has_Member">
+              <PropertyRef Name="Events_idEvents" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1ModelStoreContainer">
+          <EntitySet Name="Club" EntityType="Self.Club" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Club_member" EntityType="Self.Club_member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events_has_Member" EntityType="Self.Events_has_Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Positions" EntityType="Self.Positions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Club_memb__Club___37A5467C" Association="Self.FK__Club_memb__Club___37A5467C">
+            <End Role="Club" EntitySet="Club" />
+            <End Role="Club_member" EntitySet="Club_member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Club_memb__Posit__2E1BDC42" Association="Self.FK__Club_memb__Posit__2E1BDC42">
+            <End Role="Positions" EntitySet="Positions" />
+            <End Role="Club_member" EntitySet="Club_member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Club_memb__Stude__49C3F6B7" Association="Self.FK__Club_memb__Stude__49C3F6B7">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Club_member" EntitySet="Club_member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events__Club_idC__36B12243" Association="Self.FK__Events__Club_idC__36B12243">
+            <End Role="Club" EntitySet="Club" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events_ha__Club___31EC6D26" Association="Self.FK__Events_ha__Club___31EC6D26">
+            <End Role="Club_member" EntitySet="Club_member" />
+            <End Role="Events_has_Member" EntitySet="Events_has_Member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events_ha__Event__30F848ED" Association="Self.FK__Events_ha__Event__30F848ED">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="Events_has_Member" EntitySet="Events_has_Member" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Club">
+          <Key>
+            <PropertyRef Name="idClub" />
+          </Key>
+          <Property Name="idClub" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Patron" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Funds" Type="Int32" />
+          <NavigationProperty Name="Club_member" Relationship="Self.FK__Club_memb__Club___37A5467C" FromRole="Club" ToRole="Club_member" />
+          <NavigationProperty Name="Events" Relationship="Self.FK__Events__Club_idC__36B12243" FromRole="Club" ToRole="Events" />
+        </EntityType>
+        <EntityType Name="Club_member">
+          <Key>
+            <PropertyRef Name="idClub_members" />
+          </Key>
+          <Property Name="idClub_members" Type="Int32" Nullable="false" />
+          <Property Name="Positions_idPositions" Type="Int32" Nullable="false" />
+          <Property Name="Student_idStudent" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Club_idClub" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Club" Relationship="Self.FK__Club_memb__Club___37A5467C" FromRole="Club_member" ToRole="Club" />
+          <NavigationProperty Name="Position" Relationship="Self.FK__Club_memb__Posit__2E1BDC42" FromRole="Club_member" ToRole="Positions" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Club_memb__Stude__49C3F6B7" FromRole="Club_member" ToRole="Student" />
+          <NavigationProperty Name="Events_has_Member" Relationship="Self.FK__Events_ha__Club___31EC6D26" FromRole="Club_member" ToRole="Events_has_Member" />
+          <Property Name="Why" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="How" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="idEvents" />
+          </Key>
+          <Property Name="idEvents" Type="Int32" Nullable="false" />
+          <Property Name="Club_idClub" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Club" Relationship="Self.FK__Events__Club_idC__36B12243" FromRole="Events" ToRole="Club" />
+          <NavigationProperty Name="Events_has_Member" Relationship="Self.FK__Events_ha__Event__30F848ED" FromRole="Events" ToRole="Events_has_Member" />
+          <Property Name="seats" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Events_has_Member">
+          <Key>
+            <PropertyRef Name="idEvents_has_Member" />
+          </Key>
+          <Property Name="idEvents_has_Member" Type="Int32" Nullable="false" />
+          <Property Name="Club_member_idClub_members" Type="Int32" Nullable="false" />
+          <Property Name="Events_idEvents" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Club_member" Relationship="Self.FK__Events_ha__Club___31EC6D26" FromRole="Events_has_Member" ToRole="Club_member" />
+          <NavigationProperty Name="Event" Relationship="Self.FK__Events_ha__Event__30F848ED" FromRole="Events_has_Member" ToRole="Events" />
+          <Property Name="Why" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="idPositions" />
+          </Key>
+          <Property Name="idPositions" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Club_member" Relationship="Self.FK__Club_memb__Posit__2E1BDC42" FromRole="Positions" ToRole="Club_member" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="idStudent" />
+          </Key>
+          <Property Name="idStudent" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Class" Type="Int32" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="Major" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Club_member" Relationship="Self.FK__Club_memb__Stude__49C3F6B7" FromRole="Student" ToRole="Club_member" />
+        </EntityType>
+        <Association Name="FK__Club_memb__Club___37A5467C">
+          <End Role="Club" Type="Self.Club" Multiplicity="1" />
+          <End Role="Club_member" Type="Self.Club_member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Club">
+              <PropertyRef Name="idClub" />
+            </Principal>
+            <Dependent Role="Club_member">
+              <PropertyRef Name="Club_idClub" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Events__Club_idC__36B12243">
+          <End Role="Club" Type="Self.Club" Multiplicity="1" />
+          <End Role="Events" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Club">
+              <PropertyRef Name="idClub" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="Club_idClub" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Club_memb__Posit__2E1BDC42">
+          <End Role="Positions" Type="Self.Position" Multiplicity="1" />
+          <End Role="Club_member" Type="Self.Club_member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Positions">
+              <PropertyRef Name="idPositions" />
+            </Principal>
+            <Dependent Role="Club_member">
+              <PropertyRef Name="Positions_idPositions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Club_memb__Stude__49C3F6B7">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Club_member" Type="Self.Club_member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="idStudent" />
+            </Principal>
+            <Dependent Role="Club_member">
+              <PropertyRef Name="Student_idStudent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Events_ha__Club___31EC6D26">
+          <End Role="Club_member" Type="Self.Club_member" Multiplicity="1" />
+          <End Role="Events_has_Member" Type="Self.Events_has_Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Club_member">
+              <PropertyRef Name="idClub_members" />
+            </Principal>
+            <Dependent Role="Events_has_Member">
+              <PropertyRef Name="Club_member_idClub_members" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Events_ha__Event__30F848ED">
+          <End Role="Events" Type="Self.Event" Multiplicity="1" />
+          <End Role="Events_has_Member" Type="Self.Events_has_Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="idEvents" />
+            </Principal>
+            <Dependent Role="Events_has_Member">
+              <PropertyRef Name="Events_idEvents" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clubs" EntityType="Self.Club" />
+          <EntitySet Name="Club_member" EntityType="Self.Club_member" />
+          <EntitySet Name="Events" EntityType="Self.Event" />
+          <EntitySet Name="Events_has_Member" EntityType="Self.Events_has_Member" />
+          <EntitySet Name="Positions" EntityType="Self.Position" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <AssociationSet Name="FK__Club_memb__Club___37A5467C" Association="Self.FK__Club_memb__Club___37A5467C">
+            <End Role="Club" EntitySet="Clubs" />
+            <End Role="Club_member" EntitySet="Club_member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events__Club_idC__36B12243" Association="Self.FK__Events__Club_idC__36B12243">
+            <End Role="Club" EntitySet="Clubs" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Club_memb__Posit__2E1BDC42" Association="Self.FK__Club_memb__Posit__2E1BDC42">
+            <End Role="Positions" EntitySet="Positions" />
+            <End Role="Club_member" EntitySet="Club_member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Club_memb__Stude__49C3F6B7" Association="Self.FK__Club_memb__Stude__49C3F6B7">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Club_member" EntitySet="Club_member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events_ha__Club___31EC6D26" Association="Self.FK__Events_ha__Club___31EC6D26">
+            <End Role="Club_member" EntitySet="Club_member" />
+            <End Role="Events_has_Member" EntitySet="Events_has_Member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Events_ha__Event__30F848ED" Association="Self.FK__Events_ha__Event__30F848ED">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="Events_has_Member" EntitySet="Events_has_Member" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities">
+          <EntitySetMapping Name="Clubs">
+            <EntityTypeMapping TypeName="Database1Model.Club">
+              <MappingFragment StoreEntitySet="Club">
+                <ScalarProperty Name="idClub" ColumnName="idClub" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patron" ColumnName="Patron" />
+                <ScalarProperty Name="Funds" ColumnName="Funds" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Club_member">
+            <EntityTypeMapping TypeName="Database1Model.Club_member">
+              <MappingFragment StoreEntitySet="Club_member">
+                <ScalarProperty Name="How" ColumnName="How" />
+                <ScalarProperty Name="Why" ColumnName="Why" />
+                <ScalarProperty Name="idClub_members" ColumnName="idClub_members" />
+                <ScalarProperty Name="Positions_idPositions" ColumnName="Positions_idPositions" />
+                <ScalarProperty Name="Student_idStudent" ColumnName="Student_idStudent" />
+                <ScalarProperty Name="Club_idClub" ColumnName="Club_idClub" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="Database1Model.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="seats" ColumnName="seats" />
+                <ScalarProperty Name="idEvents" ColumnName="idEvents" />
+                <ScalarProperty Name="Club_idClub" ColumnName="Club_idClub" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events_has_Member">
+            <EntityTypeMapping TypeName="Database1Model.Events_has_Member">
+              <MappingFragment StoreEntitySet="Events_has_Member">
+                <ScalarProperty Name="Why" ColumnName="Why" />
+                <ScalarProperty Name="idEvents_has_Member" ColumnName="idEvents_has_Member" />
+                <ScalarProperty Name="Club_member_idClub_members" ColumnName="Club_member_idClub_members" />
+                <ScalarProperty Name="Events_idEvents" ColumnName="Events_idEvents" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Positions">
+            <EntityTypeMapping TypeName="Database1Model.Position">
+              <MappingFragment StoreEntitySet="Positions">
+                <ScalarProperty Name="idPositions" ColumnName="idPositions" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="Database1Model.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="idStudent" ColumnName="idStudent" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Major" ColumnName="Major" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
