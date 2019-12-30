@@ -20,7 +20,3 @@ Plan-It
 8.	Css and styling
 9.	ASP.NET MVC
 10.	LINQ
-
-•	Individual Contributions
-1.	Fatima Moin(50%)
-2.	Abdul Wasay Usmani(50%)
